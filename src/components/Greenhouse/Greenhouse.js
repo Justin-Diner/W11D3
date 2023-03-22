@@ -11,18 +11,28 @@ function Greenhouse() {
 	const {themeName, setThemeName} = useTheme();
 	const {temperature, setTemperature} = useContext(ClimateContext);
 	const {desiredTemp, setDesiredTemp} = useContext(ClimateContext);
+	const {humidity, setHumidity} = useContext(ClimateContext);
+	const {desiredHumidity, setDesiredHumidity} = useContext(ClimateContext);
+	
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			if (temperature < desiredTemp) {
 				setTemperature((prevTemp) => prevTemp + 1)
-			} else if (temperature > desiredTemp) {
+			} if (temperature > desiredTemp) {
 				setTemperature((prevTemp) => prevTemp - 1)
-			}}, 1000);
+			}
+			if (humidity < desiredHumidity) {
+				setHumidity(prevHumidity => prevHumidity + 2)
+			}
+			if (humidity > desiredHumidity) {
+				setHumidity(prevHumidity => prevHumidity - 2)
+			}
+		}, 1000);
 				return () => {
 					clearTimeout(timer);
 			}
-    }, [temperature, desiredTemp]
+    }, [temperature, desiredTemp, humidity, desiredHumidity]
   )
 
   return (
