@@ -5,22 +5,19 @@ import { useContext, useState, useEffect } from "react";
 
 function Thermometer() {
   const {temperature, setTemperature} = useContext(ClimateContext);
-  const [desiredTemp, setDesiredTemp] = useState(0);
+  const {desiredTemp, setDesiredTemp} = useContext(ClimateContext);
 	
-  const changeTemp = useEffect(
-    () => {
-      const timer = setTimeout(  (prevTemp) => {
-        if(prevTemp < desiredTemp) {
-          console.log("running")
-          setTemperature(prevTemp + 1)
-        }
-        else if (prevTemp > desiredTemp) {
-          console.log("running")
-          setTemperature(prevTemp - 1)
-        }
-      }, 1000)
-      return clearTimeout(timer)
-    }, [temperature]
+  useEffect(() => {
+		const timer = setTimeout(() => {
+			if (temperature < desiredTemp) {
+				setTemperature((prevTemp) => prevTemp + 1)
+			} else if (temperature > desiredTemp) {
+				setTemperature((prevTemp) => prevTemp - 1)
+			}}, 1000);
+				return () => {
+					clearTimeout(timer);
+			}
+    }, [temperature, desiredTemp]
   )
 
   return (
@@ -30,9 +27,8 @@ function Thermometer() {
       <ReactSlider
         value={desiredTemp}
         onAfterChange={(val) => {
-          setDesiredTemp(val)
-          changeTemp()
-        }}
+          setDesiredTemp(val)}
+        }
         className="thermometer-slider"
         thumbClassName="thermometer-thumb"
         trackClassName="thermometer-track"
