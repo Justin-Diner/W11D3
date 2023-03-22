@@ -5,6 +5,8 @@ import { useContext } from "react";
 
 function Thermometer() {
   const {temperature, setTemperature} = useContext(ClimateContext);
+	
+
   return (
     <section>
       <h2>Thermometer</h2>
