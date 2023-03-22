@@ -29,11 +29,10 @@ function Greenhouse() {
 				setHumidity(prevHumidity => prevHumidity - 2)
 			}
 		}, 1000);
-				return () => {
-					clearTimeout(timer);
-			}
-    }, [temperature, desiredTemp, humidity, desiredHumidity]
-  )
+		return () => {
+			clearTimeout(timer);
+		}
+  }, [temperature, desiredTemp, humidity, desiredHumidity]);
 
   return (
     <section>
